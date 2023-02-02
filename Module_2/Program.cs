@@ -13,7 +13,7 @@ namespace Module_2
             Console.Write("Введите задание, которое хотите проверить: ");
             string test = Console.ReadLine();
 
-            #region
+            #region манипуляции с двумерным массивом
             if (test == "1")
             {
                 int sumen = 0;
@@ -196,16 +196,179 @@ namespace Module_2
                     }
                 }
                 Console.WriteLine($"Сумма элементов массива, расположенных между минимальным и максимальным значением -> {sum}");
-                #endregion
-                #region шифр Цезаря 
-                if (test == "3")
-                {
-                    
-
-                }
-                #endregion
             }
+            #endregion
+            #region шифр Цезаря 
+            if (test == "3")
+            {
+                int j;
+                int bias;
+                Console.Write("Введите текст, который хотите зашифровать: ");
+                string text = Console.ReadLine();
+
+                char[] str = text.ToCharArray();
+
+                char[] alphabet = { 'а', 'б', 'в', 'г', 'д','е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'x','ч', 'ц', 'ч', 'ш', 'щ', 'ь', 'ы', 'ь', 'э', 'ю', 'я' };
+
+                for (int i = 0; i < str.Length; i++)
+                {
+                    for (j = 0; j < alphabet.Length; j++)
+                    {
+                        if (str[i] == alphabet[j])
+                        {
+                            break;
+                        }
+                    }
+
+                    if (j != 33)
+                    {
+                        bias = j + 3;
+
+                        if (bias > 32)
+                        {
+                            bias -= 33;
+                        }
+
+                        str[i] = alphabet[bias];
+                    }
+                }
+                string newStr = new string(str);
+                Console.WriteLine($"Ваш зашифрованный текст: {newStr}");
+            }
+            #endregion
+            #region операции над матрицами
+            if (test == "4")
+            {
+                int N = 3;
+                int M = 3;
+
+                int N1 = 3;
+                int M1 = 3;
+
+                int[,] Matrix = new int[M, N];
+                int[,] Matrix1 = new int[M1, N1];
+
+                Console.Write("Введите число на которое нужно умножить матрицу А: ");
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Введите число на которое нужно умножить матрицу B: ");
+                int num1 = Convert.ToInt32(Console.ReadLine());
+                
+
+                Random random = new Random();
+
+                Console.WriteLine($"Умножение матрицы A на число {num}");
+                for (int i = 0; i < Matrix.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Matrix.GetLength(1); j++)
+                    {
+                        Matrix[i, j] = random.Next(50);
+                        Matrix[i, j] *= num;
+                        Console.Write($"{Matrix[i, j]}|");
+
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine($"Умножение матрицы B на число {num1}");
+                for (int i = 0; i < Matrix1.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Matrix1.GetLength(1); j++)
+                    {
+                        Matrix1[i, j] = random.Next(50);
+                        Matrix1[i, j] *= num1;
+                        Console.Write($"{Matrix1[i, j]}|");
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"Сложение матриц А и В -> ");
+                for (int i = 0; i < Matrix1.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Matrix1.GetLength(1); j++)
+                    {
+                        Matrix1[i, j] += Matrix[i, j];
+                        Console.Write($"{Matrix1[i, j]}|");
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"Произведение матриц А и В -> ");
+                for (int i = 0; i < Matrix1.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Matrix1.GetLength(1); j++)
+                    {
+                        Matrix1[i, j] *= Matrix[i, j];
+                        Console.Write($"{Matrix1[i, j]}|");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            #endregion
+            #region арифметическое выражение
+            if (test == "5")
+            {
+                Console.Write("Введите последовательность трех чисел: ");
+                string[] str = Console.ReadLine().Split(new char[] { ' ', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                int Foper;
+                int Soper;
+
+                for (int i = 0; i < str.Length; i++)
+                {
+                    int sum;
+                    if (str[i] == "+")
+                    {
+                        Foper = Convert.ToInt32(str[i - 1]);
+                        Soper = Convert.ToInt32(str[i + 1]);
+                        sum = Foper + Soper;
+                        Console.WriteLine($"Сумма чисел {Foper} {str[i]} {Soper} = {sum}");
+                    }
+                    if (str[i] == "-")
+                    {
+                        Foper = Convert.ToInt32(str[i - 1]);
+                        Soper = Convert.ToInt32(str[i + 1]);
+                        sum = Foper - Soper;
+                        Console.WriteLine($"Разница чисел {Foper} {str[i]} {Soper} = {sum}");
+                    }
+                }
+            }
+            #endregion
+            #region регистр
+            if (test == "6")
+            {
+                Console.Write("Введите текст: ");
+                string text = Console.ReadLine();
+
+                char[] str = text.ToCharArray();
+
+                for (int i = 0; i < str.Length; i++)
+                {
+                    str[0] = char.ToUpper(str[0]);
+                    if(str[i] == '.' || str[i] == '!'|| str[i] == '?')
+                    {
+                        str[i+2] = char.ToUpper(str[i+2]);
+                    }
+                }
+
+                string newStr = new string(str);
+                Console.WriteLine($"Ваш новый текст: {newStr}");
+            }
+            #endregion
+            #region недопустимое слово
+            if (test == "7")
+            {
+                Console.Write("Введите текст: ");
+                string text = Console.ReadLine();
+
+                Console.Write("Введите недопустимое слово: ");
+                string word = Console.ReadLine();
+
+                text = text.Replace(word, "***");
+                Console.WriteLine(text);
+            }
+            #endregion
+
 
         }
     }
 }
+
